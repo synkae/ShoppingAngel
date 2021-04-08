@@ -1,6 +1,8 @@
 # Shopping Angel
 
-**CST438 Project 3**
+CST438 Project 3
+<br/><br/>
+
 
 ## Team Members
 - [Lily Joh](https://github.com/yelinj) / yelinj
@@ -13,39 +15,43 @@
 1. [Overview](#Overview)
 2. [Product Spec](#Product-Spec)
 3. [Wireframes](#Wireframes)
+<br/>
 
-### 1. Overview
+### Overview
 #### Goal of the Project
 Shopping Angel is an Android app that lets users set a budget for shopping, scan a barcode to add an item to a cart and checks the remaining budget so that they can save money.
+</br></br>
 
 #### The Minimum Viable Product
 Shopping Angel is an Android app that lets users set a budget for shopping, scan a barcode to add an item to a cart and checks the remaining budget so that they can save money.
+</br></br>
 
 #### A timeline for completion with goals
-**Week 1**
-- Set up a database for user, item, cart by using Back4App
-- Log In
-- Log Out
-- Create an Account
+* Week 1
+   * Set up a database for user, item, cart by using Back4App
+   * Log In
+   * Log Out
+   * Create an Account
 
-**Week 2**
-- Add an Item
-- Delete an Item
-- Set / Adjust a Budget
-- Display Remaining Budget
+* Week 2
+   * Add an Item
+   * Delete an Item
+   * Set / Adjust a Budget
+   * Display Remaining Budget
 
-**Week 3**
-- Admin feature(add an item)
-- Admin feature(edit an item)
-- Display an Item Information
+* Week 3
+   * Admin feature(add an item)
+   * Admin feature(edit an item)
+   * Display an Item Information
 
-**Week 4**
-- Scan a Barcode(optional)
-- Upload a Barcode Image(optional)
+* Week 4
+   * Scan a Barcode(optional)
+   * Upload a Barcode Image(optional)
 
-**Week 5**
-- Front-end
-- Debugging
+* Week 5
+   * Front-end
+   * Debugging
+</br></br>
 
 #### Mockups and ERDs
 <img src="https://github.com/synkae/ShoppingAngel/blob/master/FlowChart_ERD.png">
@@ -56,11 +62,14 @@ https://www.android.com/
 - Parse
 https://parseplatform.org/
 - Barcode API(optional)
+<br/><br/></br></br>
 
-### 2. Product Spec
-#### 1. User Stories (Required and Optional)
 
-**Required Must-have Stories**
+### Product Spec
+#### User Stories (Required and Optional)
+
+Required Must-have Stories
+</br>
 - [ ] Log In
 - [ ] Log Out
 - [ ] Create an Account
@@ -72,12 +81,15 @@ https://parseplatform.org/
 - [ ] Display Remaining Budget
 - [ ] Admin(add an item)
 - [ ] Admin(edit an item)
+</br></br>
 
-**Optional Nice-to-have Stories**
+Optional Nice-to-have Stories
+</br>
 - [ ] Scan a Barcode
 - [ ] Upload a Barcode Image
+</br></br>
 
-#### 2. Screen Archetypes
+#### Screen Archetypes
 
 * Log In
    * Users can log in to Shopping Angel so that they can manage their shopping budget.
@@ -97,13 +109,12 @@ https://parseplatform.org/
    * Users can delete an item so that they can remove the item from the shopping cart. 
 * Display Remaining Budget
    * Users can see the remaining budget so that they can check how much they can spend more.
-* Profile Screen
-   * Users can view their own posts.
 * Admin(add an item)
    * Admin users can add an item to a database so that users can add/delete the item.
 * Admin(edit an item)
    * Admin users can edit an item to a database so that users can add/delete the item.
+<br/><br/></br></br>
 
 
-### 3. Wireframes
+### Wireframes
 <img src="https://github.com/synkae/ShoppingAngel/blob/master/wireframe.png">
