@@ -14,6 +14,8 @@ public class UserMainActivity extends AppCompatActivity {
     private Button logoutBtn;
     private TextView currBudget;
     private TextView remainingBudget;
+
+    private Button addItemBtn;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
