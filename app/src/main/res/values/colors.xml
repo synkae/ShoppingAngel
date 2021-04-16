@@ -3,4 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorMint">#A0CABE</color>
+    <color name="colorMintGray">#F6FBF9</color>
+    <color name="colorMintDark">#637887</color>
+    <color name="colorMintFont">#4A5B67</color>
 </resources>
