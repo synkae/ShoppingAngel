@@ -14,9 +14,11 @@
         android:id="@+id/btnCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_round"
         android:text="@string/camera"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/colorMintFont"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBarcode" />
 
@@ -24,29 +26,56 @@
         android:id="@+id/btnGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_round"
         android:text="@string/gallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
+        android:textColor="@color/colorMintFont"
+        app:layout_constraintStart_toEndOf="@+id/btnCamera"
+        app:layout_constraintTop_toBottomOf="@+id/ivBarcode" />
 
     <ImageView
         android:id="@+id/ivBarcode"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginTop="150dp"
+        android:src="@drawable/ic_baseline_add_a_photo_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_baseline_add_photo_alternate_24"
-        tools:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
+        tools:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
-    <TextView
-        android:id="@+id/tvScanned"
+<!--    <TextView-->
+<!--        android:id="@+id/tvScanned"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnGallery" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/ivTest"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.442"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/btnCamera"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ivBarcode"-->
+<!--        tools:srcCompat="@tools:sample/avatars" />-->
+
+    <Button
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textSize="18sp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_round"
+        android:text="@string/add"
+        android:textColor="@color/colorMintFont"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGallery" />
 
