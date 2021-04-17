@@ -53,12 +53,10 @@ public class ScanActivity extends AppCompatActivity {
     private File photoFile;
     public String photoFileName = "photo.jpg";
     ImageView ivBarcode;
-    ImageView ivTest;
     Button btnCamera;
     Button btnGallery;
-    TextView tvScanned;
-    String scannedObjectId;
-    String itemInfo;
+    Button btnAdd;
+    String objectId;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -69,11 +67,10 @@ public class ScanActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ivTest = findViewById(R.id.ivTest);
         ivBarcode = findViewById(R.id.ivBarcode);
         btnCamera = findViewById(R.id.btnCamera);
         btnGallery = findViewById(R.id.btnGallery);
-        tvScanned = findViewById(R.id.tvScanned);
+        btnAdd = findViewById(R.id.btnAdd);
 
         requiredUserPermission();
 
@@ -88,6 +85,16 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchGallery();
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ScanActivity.this, AddActivity.class);
+                i.putExtra("objectId", objectId);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -161,12 +168,11 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        itemInfo = "";
+
         // Gallery
         if (data != null && requestCode == PICK_PHOTO_CODE && resultCode == RESULT_OK) {
             Uri photoUri = data.getData();
             ivBarcode.setImageURI(photoUri);
-
             //convert URI to Bitmap
             Bitmap bMap = null;
             try {
@@ -174,48 +180,12 @@ public class ScanActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             //scanned item
-            scannedObjectId = convertImageToObjectId(bMap);
-            itemInfo += "objectId: " + scannedObjectId;
+            objectId = convertImageToObjectId(bMap);
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
-            query.whereEqualTo("objectId", scannedObjectId);
-            query.getFirstInBackground(new GetCallback<ParseObject>() {
-                public void done(ParseObject item, ParseException e) {
-                    if (e == null) {
-                        ParseFile itemImg = item.getParseFile("image");
-
-                        String itemName = item.getString("itemName");
-                        itemInfo += "\nitemName: " + itemName;
-
-                        int price = item.getInt("price");
-                        itemInfo += "\nprice: " + price;
-
-                        tvScanned.setText(itemInfo);
-
-                        itemImg.getDataInBackground(new GetDataCallback() {
-                            @Override
-                            public void done(byte[] data, ParseException e) {
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                ivTest.setImageBitmap(bitmap);
-                            }
-                        });
-                    } else {
-                        // Something is wrong
-                        ivTest.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
-                        itemInfo = "";
-                        tvScanned.setText(itemInfo);
-                    }
-                }
-            });
         }
-
         // Camera
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            ivTest.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
-            itemInfo = "";
-            tvScanned.setText(itemInfo);
             if (resultCode == RESULT_OK) {
                 // by this point we have the camera photo on disk
                 Log.i(TAG, "FileName: " + photoFile.getAbsolutePath());
