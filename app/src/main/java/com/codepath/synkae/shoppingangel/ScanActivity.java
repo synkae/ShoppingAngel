@@ -30,6 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.common.HybridBinarizer;
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -40,15 +46,19 @@ import com.google.zxing.*;
 
 public class ScanActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 121;
     public final static int PICK_PHOTO_CODE = 1046;
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final String TAG = "ScanActivity";
     private File photoFile;
     public String photoFileName = "photo.jpg";
     ImageView ivBarcode;
+    ImageView ivTest;
     Button btnCamera;
     Button btnGallery;
     TextView tvScanned;
-    String scannedItem;
+    String scannedObjectId;
+    String itemInfo;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -59,12 +69,20 @@ public class ScanActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ivTest = findViewById(R.id.ivTest);
         ivBarcode = findViewById(R.id.ivBarcode);
         btnCamera = findViewById(R.id.btnCamera);
         btnGallery = findViewById(R.id.btnGallery);
         tvScanned = findViewById(R.id.tvScanned);
 
         requiredUserPermission();
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchCamera();
+            }
+        });
 
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +92,20 @@ public class ScanActivity extends AppCompatActivity {
         });
     }
 
-    private static final int REQUEST_CODE = 121;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_logout) {
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requiredUserPermission(){
         if(!permissionAlreadyGranted()){
@@ -92,6 +123,24 @@ public class ScanActivity extends AppCompatActivity {
         return true;
     }
 
+    private void launchCamera() {
+        // create Intent to take a picture and return control to the calling application
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Create a File reference for future access
+        photoFile = getPhotoFileUri(photoFileName);
+
+        // wrap File object into a content provider
+        // required for API >= 24
+        Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        if (intent.resolveActivity(this.getPackageManager()) != null) {
+            // Start the image capture intent to take photo
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+    }
 
     private void launchGallery() {
         // Create intent for picking a photo from the gallery
@@ -107,12 +156,13 @@ public class ScanActivity extends AppCompatActivity {
         photoFile = getPhotoFileUri(photoFileName);
         Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-//        ivBarcode.setImageBitmap(photoFile);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        itemInfo = "";
+        // Gallery
         if (data != null && requestCode == PICK_PHOTO_CODE && resultCode == RESULT_OK) {
             Uri photoUri = data.getData();
             ivBarcode.setImageURI(photoUri);
@@ -126,8 +176,56 @@ public class ScanActivity extends AppCompatActivity {
             }
 
             //scanned item
-            scannedItem = scanImage(bMap);
-            tvScanned.setText("Item: " + scannedItem);
+            scannedObjectId = convertImageToObjectId(bMap);
+            itemInfo += "objectId: " + scannedObjectId;
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
+            query.whereEqualTo("objectId", scannedObjectId);
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject item, ParseException e) {
+                    if (e == null) {
+                        ParseFile itemImg = item.getParseFile("image");
+
+                        String itemName = item.getString("itemName");
+                        itemInfo += "\nitemName: " + itemName;
+
+                        int price = item.getInt("price");
+                        itemInfo += "\nprice: " + price;
+
+                        tvScanned.setText(itemInfo);
+
+                        itemImg.getDataInBackground(new GetDataCallback() {
+                            @Override
+                            public void done(byte[] data, ParseException e) {
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                ivTest.setImageBitmap(bitmap);
+                            }
+                        });
+                    } else {
+                        // Something is wrong
+                        ivTest.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+                        itemInfo = "";
+                        tvScanned.setText(itemInfo);
+                    }
+                }
+            });
+        }
+
+        // Camera
+        else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            ivTest.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+            itemInfo = "";
+            tvScanned.setText(itemInfo);
+            if (resultCode == RESULT_OK) {
+                // by this point we have the camera photo on disk
+                Log.i(TAG, "FileName: " + photoFile.getAbsolutePath());
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                // RESIZE BITMAP, see section below
+                // Load the taken image into a preview
+                ivBarcode.setImageBitmap(takenImage);
+            } else { // Result was a failure
+                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -139,7 +237,7 @@ public class ScanActivity extends AppCompatActivity {
         return image;
     }
 
-    public static String scanImage(Bitmap bMap) {
+    public static String convertImageToObjectId (Bitmap bMap) {
         String contents = null;
 
         int[] intArray = new int[bMap.getWidth()*bMap.getHeight()];
@@ -173,20 +271,6 @@ public class ScanActivity extends AppCompatActivity {
 
         // Return the file target for the photo based on filename
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            logout();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
