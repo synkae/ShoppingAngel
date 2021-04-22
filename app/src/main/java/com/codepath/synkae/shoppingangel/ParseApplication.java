@@ -1,7 +1,11 @@
 package com.codepath.synkae.shoppingangel;
 
 import android.app.Application;
+
+import com.codepath.synkae.shoppingangel.models.Cart;
+import com.codepath.synkae.shoppingangel.models.Item;
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -12,7 +16,8 @@ public class ParseApplication extends Application {
         super.onCreate();
         // Use for troubleshooting -- remove this line for production
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
-
+        ParseObject.registerSubclass(Item.class);
+        ParseObject.registerSubclass(Cart.class);
         // Use for monitoring Parse OkHttp traffic
         // Can be Level.BASIC, Level.HEADERS, or Level.BODY
         // See https://square.github.io/okhttp/3.x/logging-interceptor/ to see the options.
