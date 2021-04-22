@@ -5,8 +5,8 @@ import com.parse.ParseObject;
 
 import org.parceler.Parcel;
 
-@ParseClassName("Item")
 @Parcel(analyze = Item.class)
+@ParseClassName("Item")
 public class Item extends ParseObject {
     public static final String KEY_ITEM_NAME = "itemName";
     public static final String KEY_PRICE = "price";
