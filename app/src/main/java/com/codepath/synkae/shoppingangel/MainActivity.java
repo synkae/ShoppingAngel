@@ -26,12 +26,19 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button btnScan = findViewById(R.id.btnScan);
+        Button btnAdd = findViewById(R.id.btnAdd);
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, ScanActivity.class);
                 startActivity(i);
-                finish();
+            }
+        });
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, AddItemActivity.class);
+                startActivity(i);
             }
         });
     }
