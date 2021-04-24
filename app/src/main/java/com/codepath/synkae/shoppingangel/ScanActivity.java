@@ -56,7 +56,7 @@ public class ScanActivity extends AppCompatActivity {
     Button btnCamera;
     Button btnGallery;
     Button btnAdd;
-    String objectId;
+    String itemId;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -92,7 +92,7 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ScanActivity.this, AddActivity.class);
-                i.putExtra("objectId", objectId);
+                i.putExtra("itemId", itemId);
                 startActivity(i);
                 finish();
             }
@@ -181,8 +181,7 @@ public class ScanActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             //scanned item
-            objectId = convertImageToObjectId(bMap);
-
+            itemId = convertImageToItemId(bMap);
         }
         // Camera
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -207,7 +206,7 @@ public class ScanActivity extends AppCompatActivity {
         return image;
     }
 
-    public static String convertImageToObjectId (Bitmap bMap) {
+    public static String convertImageToItemId (Bitmap bMap) {
         String contents = null;
 
         int[] intArray = new int[bMap.getWidth()*bMap.getHeight()];
