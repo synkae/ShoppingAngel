@@ -1,8 +1,11 @@
 package com.codepath.synkae.shoppingangel.models;
-import androidx.room.*;
+
 import android.content.Context;
 
-@Database(entities = {}, version = 1, exportSchema = false)
+import androidx.room.*;
+import androidx.room.Database;
+
+//@Database(entities = {}, version = 1, exportSchema = false)
 public abstract class RoomDB extends RoomDatabase{
 
     private static RoomDB sInstance;
