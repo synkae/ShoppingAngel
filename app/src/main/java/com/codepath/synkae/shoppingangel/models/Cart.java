@@ -8,8 +8,8 @@ import org.parceler.Parcel;
 @ParseClassName("Cart")
 @Parcel(analyze = Cart.class)
 public class Cart extends ParseObject {
-    public static final String KEY_USER_ID = "userId";
-    public static final String KEY_ITEM_ID = "itemId";
+    public static final String KEY_USER_ID = "user";
+    public static final String KEY_ITEM_ID = "item";
     public static final String KEY_NAME = "name";
     public static final String KEY_TOTAL = "total";
 

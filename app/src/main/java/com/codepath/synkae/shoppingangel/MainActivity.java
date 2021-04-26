@@ -3,6 +3,8 @@ package com.codepath.synkae.shoppingangel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,10 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 
+import com.codepath.synkae.shoppingangel.models.Cart;
+import com.codepath.synkae.shoppingangel.models.CartAdapter;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.security.spec.InvalidParameterSpecException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     Double currentBudget;
     Double newBudget;
     ParseUser currentUser = ParseUser.getCurrentUser();
+    public static RecyclerView rvCart;
+    CartAdapter cartAdapter;
+    List<Cart> cartList;
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
         btnScan = findViewById(R.id.btnScan);
         btnAdd = findViewById(R.id.btnAdd);
         btnAdjust = findViewById(R.id.btnAdjust);
+        cartList = new ArrayList<>();
+        cartAdapter = new CartAdapter(this, cartList);
+        rvCart = findViewById(R.id.rvCart);
+        rvCart.setLayoutManager(new LinearLayoutManager(this));
+        rvCart.setAdapter(cartAdapter);
 
+        queryCartItems();
         displayCurrentBudget();
 
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +90,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 adjustCurrentBudget();
+            }
+        });
+    }
+
+    public void queryCartItems() {
+        cartList.clear();
+        ParseQuery<Cart> query = new ParseQuery<Cart>(Cart.class);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Cart>() {
+            @Override
+            public void done(List<Cart> carts, ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "error", e);
+                    return;
+                }
+                for (Cart c : carts){
+                    Log.d(TAG, c.getObjectId() + " " + c.getUser() + ", " + c.getItem());
+                }
+                cartList.addAll(carts);
+                cartAdapter.notifyDataSetChanged();
             }
         });
     }

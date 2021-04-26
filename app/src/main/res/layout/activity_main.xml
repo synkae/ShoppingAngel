@@ -15,12 +15,12 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_round"
         android:text="@string/scan"
         android:textColor="@color/colorMintFont"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.311"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
 
@@ -29,12 +29,12 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_round"
         android:text="@string/add"
         android:textColor="@color/colorMintFont"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toEndOf="@+id/btnScan"
         app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
 
@@ -43,8 +43,8 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="75dp"
         android:layout_height="43dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_round_dark"
         android:text="@string/adjust"
         android:textColor="@color/colorMintGray"
@@ -55,8 +55,8 @@
         android:id="@+id/tvCurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
         android:text="@string/currentBudget"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,11 +77,23 @@
         android:id="@+id/etNewBudget"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRemaining" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCart"
+        android:layout_width="420dp"
+        android:layout_height="428dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
