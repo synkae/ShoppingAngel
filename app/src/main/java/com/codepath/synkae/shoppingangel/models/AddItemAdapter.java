@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.synkae.shoppingangel.AddActivity;
+import com.codepath.synkae.shoppingangel.MainActivity;
 import com.codepath.synkae.shoppingangel.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -50,6 +51,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 addItemToCart(item);
+
+                //this doesnt work
+                //MainActivity.rvCart.getAdapter().notifyDataSetChanged();
             }
         });
     }
