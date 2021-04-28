@@ -96,12 +96,34 @@ public class AddActivity extends AppCompatActivity {
                     });
 
                 } else {
-                    // No items found
-                    tvItemName.setText("No items found");
+                    // item not found   
+                    tvItemName.setText("Item Not Found");
                     tvPrice.setText("");
+                    btnCancel.setText("Retry");
+                    btnConfirm.setText("My Cart");
+                    // go back to scan page
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            goScanActivity();
+                        }
+                    });
+                    // go to main cart page
+                    btnConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            goMainActivity();
+                        }
+                    });
                 }
             }
         });
+    }
+
+    private void goScanActivity() {
+        Intent i = new Intent(AddActivity.this, ScanActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void goMainActivity() {
