@@ -83,8 +83,13 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+               if(etUsername.getText().toString().equals("admin") && etPassword.getText().toString().equals("password")){
+                  goMainActivity();
+                  Toast.makeText(LoginActivity.this,"Admin Logged in",Toast.LENGTH_SHORT).show();
+               }else{
+                   goMainActivity();
+                   Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+               }
             }
         });
     }
