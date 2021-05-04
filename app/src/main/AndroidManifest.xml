@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".activities.ParseApplication"
+        android:name=".fragments.ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,11 +15,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".fragments.HomeActivity">
         </activity>
-        <activity android:name=".activities.AddItemActivity" />
-        <activity android:name=".activities.AddActivity" />
-        <activity android:name=".activities.ScanActivity" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".previous.AddItemActivity" />
+        <activity android:name=".previous.AddActivity" />
+        <activity android:name=".previous.ScanActivity" />
+        <activity android:name=".previous.MainActivity" />
+        <activity android:name=".fragments.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

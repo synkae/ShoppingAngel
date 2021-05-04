@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.view.Menu;
 
-import com.codepath.synkae.shoppingangel.activities.LoginActivity;
 import com.codepath.synkae.shoppingangel.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
@@ -24,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
+        setContentView(R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

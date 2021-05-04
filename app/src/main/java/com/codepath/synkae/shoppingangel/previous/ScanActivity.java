@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel.activities;
+package com.codepath.synkae.shoppingangel.previous;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.codepath.synkae.shoppingangel.R;
+import com.codepath.synkae.shoppingangel.fragments.LoginActivity;
 import com.google.zxing.common.HybridBinarizer;
 import com.parse.ParseUser;
 
