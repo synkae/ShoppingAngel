@@ -26,7 +26,9 @@ import com.parse.ParseQuery;
 
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
@@ -84,7 +86,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         return;
                     }
                     tvName.setText(item.getItemName());
-                    tvPrice.setText("$" + item.getPrice());
+                    tvPrice.setText(NumberFormat.getCurrencyInstance(new Locale("en", "US")).format(item.getPrice()));
                     ParseFile itemImageFile = item.getParseFile("itemImage");
                     // itemImage found
                     if (itemImageFile != null) {

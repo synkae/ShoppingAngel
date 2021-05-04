@@ -1,7 +1,8 @@
-package com.codepath.synkae.shoppingangel;
+package com.codepath.synkae.shoppingangel.activities;
 
 import android.app.Application;
 
+import com.codepath.synkae.shoppingangel.R;
 import com.codepath.synkae.shoppingangel.models.Cart;
 import com.codepath.synkae.shoppingangel.models.Item;
 import com.parse.Parse;

@@ -14,8 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codepath.synkae.shoppingangel.AddActivity;
-import com.codepath.synkae.shoppingangel.MainActivity;
 import com.codepath.synkae.shoppingangel.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;

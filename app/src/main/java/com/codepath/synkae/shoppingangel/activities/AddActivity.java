@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel;
+package com.codepath.synkae.shoppingangel.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.synkae.shoppingangel.R;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;

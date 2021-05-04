@@ -1,15 +1,6 @@
-package com.codepath.synkae.shoppingangel;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
+package com.codepath.synkae.shoppingangel.fragments;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,28 +8,48 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.codepath.synkae.shoppingangel.R;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
+import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.parse.ParseUser;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
-import com.google.zxing.*;
+import static android.app.Activity.RESULT_OK;
 
-public class ScanActivity extends AppCompatActivity {
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ScanFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ScanFragment extends Fragment {
     private static final int REQUEST_CODE = 121;
     public final static int PICK_PHOTO_CODE = 1046;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
@@ -51,19 +62,62 @@ public class ScanActivity extends AppCompatActivity {
     Button btnAdd;
     String itemId;
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public ScanFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ScanFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ScanFragment newInstance(String param1, String param2) {
+        ScanFragment fragment = new ScanFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_scan, container, false);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ivBarcode = findViewById(R.id.ivBarcode);
-        btnCamera = findViewById(R.id.btnCamera);
-        btnGallery = findViewById(R.id.btnGallery);
-        btnAdd = findViewById(R.id.btnAdd);
+        ivBarcode = view.findViewById(R.id.ivBarcode);
+        btnCamera = view.findViewById(R.id.btnCamera);
+        btnGallery = view.findViewById(R.id.btnGallery);
+        btnAdd = view.findViewById(R.id.btnAdd);
 
         requiredUserPermission();
 
@@ -84,26 +138,18 @@ public class ScanActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ScanActivity.this, AddActivity.class);
-                i.putExtra("itemId", itemId);
-                startActivity(i);
-                finish();
+                Fragment fragment = new ItemConfirmFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("itemId", itemId);
+                fragment.setArguments(bundle);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            logout();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -116,7 +162,7 @@ public class ScanActivity extends AppCompatActivity {
     private boolean permissionAlreadyGranted() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
         for (String permission : perms) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -131,12 +177,12 @@ public class ScanActivity extends AppCompatActivity {
 
         // wrap File object into a content provider
         // required for API >= 24
-        Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
-        if (intent.resolveActivity(this.getPackageManager()) != null) {
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
@@ -149,12 +195,12 @@ public class ScanActivity extends AppCompatActivity {
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
-        if (intent.resolveActivity(this.getPackageManager()) != null) {
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             // Bring up gallery to select a photo
             startActivityForResult(intent, PICK_PHOTO_CODE);
         }
         photoFile = getPhotoFileUri(photoFileName);
-        Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.codepath.synkae.shoppingangel.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
     }
 
@@ -186,13 +232,13 @@ public class ScanActivity extends AppCompatActivity {
                 // Load the taken image into a preview
                 ivBarcode.setImageBitmap(takenImage);
             } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {
-        ParcelFileDescriptor parcelFileDescriptor = this.getContentResolver().openFileDescriptor(uri, "r");
+        ParcelFileDescriptor parcelFileDescriptor = getActivity().getContentResolver().openFileDescriptor(uri, "r");
         FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
         parcelFileDescriptor.close();
@@ -213,6 +259,7 @@ public class ScanActivity extends AppCompatActivity {
         try {
             Result result = reader.decode(bitmap);
             contents = result.getText();
+            Log.i("ItemId", contents);
         }
         catch (Exception e) {
             Log.e("QrTest", "Error decoding barcode", e);
@@ -224,7 +271,7 @@ public class ScanActivity extends AppCompatActivity {
         // Get safe storage directory for photos
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
@@ -233,18 +280,5 @@ public class ScanActivity extends AppCompatActivity {
 
         // Return the file target for the photo based on filename
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
-    }
-
-    private void logout() {
-        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-        ParseUser.logOutInBackground(e -> {
-            progressDialog.dismiss();
-            if (e == null) {
-                Toast.makeText(ScanActivity.this, "You have successfully logged out", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, LoginActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
     }
 }
