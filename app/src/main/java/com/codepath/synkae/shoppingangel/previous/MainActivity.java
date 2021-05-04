@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel.activities;
+package com.codepath.synkae.shoppingangel.previous;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.view.Menu;
 
 import com.codepath.synkae.shoppingangel.R;
+import com.codepath.synkae.shoppingangel.fragments.LoginActivity;
 import com.codepath.synkae.shoppingangel.models.Cart;
 import com.codepath.synkae.shoppingangel.models.CartAdapter;
 import com.parse.FindCallback;

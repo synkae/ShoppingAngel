@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel.activities;
+package com.codepath.synkae.shoppingangel.fragments;
 
 import android.app.Application;
 

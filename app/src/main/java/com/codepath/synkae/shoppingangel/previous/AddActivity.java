@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel.activities;
+package com.codepath.synkae.shoppingangel.previous;
 
 import androidx.appcompat.app.AppCompatActivity;
 
