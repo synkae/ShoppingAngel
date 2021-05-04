@@ -1,46 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
-
-    <Button
-        android:id="@+id/btnScan"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/btn_round"
-        android:text="@string/scan"
-        android:textColor="@color/colorMintFont"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/btn_round"
-        android:text="@string/add"
-        android:textColor="@color/colorMintFont"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
-        app:layout_constraintStart_toEndOf="@+id/btnScan"
-        app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
         android:id="@+id/btnAdjust"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="75dp"
-        android:layout_height="43dp"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/btn_round_dark"
         android:text="@string/adjust"
         android:textColor="@color/colorMintGray"
@@ -52,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:text="@string/currentBudget"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvRemaining"
@@ -85,11 +55,10 @@
         android:layout_width="420dp"
         android:layout_height="428dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScan" />
+        app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

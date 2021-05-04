@@ -1,23 +1,22 @@
-package com.codepath.synkae.shoppingangel;
+package com.codepath.synkae.shoppingangel.fragments;
+
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.Menu;
 
+import com.codepath.synkae.shoppingangel.R;
 import com.codepath.synkae.shoppingangel.models.Cart;
 import com.codepath.synkae.shoppingangel.models.CartAdapter;
 import com.parse.FindCallback;
@@ -25,19 +24,21 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.security.spec.InvalidParameterSpecException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link HomeFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HomeFragment extends Fragment {
     TextView tvCurrent;
     TextView tvRemaining;
     EditText etNewBudget;
-    Button btnScan;
-    Button btnAdd;
     Button btnAdjust;
     Double currentBudget;
     Double newBudget;
@@ -45,46 +46,71 @@ public class MainActivity extends AppCompatActivity {
     public static RecyclerView rvCart;
     CartAdapter cartAdapter;
     List<Cart> cartList;
-    public static final String TAG = "MainActivity";
+    public static final String TAG = "HomeFragment";
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment HomeFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        tvCurrent = findViewById(R.id.tvCurrent);
-        tvRemaining = findViewById(R.id.tvRemaining);
-        etNewBudget = findViewById(R.id.etNewBudget);
-        btnScan = findViewById(R.id.btnScan);
-        btnAdd = findViewById(R.id.btnAdd);
-        btnAdjust = findViewById(R.id.btnAdjust);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        tvCurrent = view.findViewById(R.id.tvCurrent);
+        tvRemaining = view.findViewById(R.id.tvRemaining);
+        etNewBudget = view.findViewById(R.id.etNewBudget);
+        btnAdjust = view.findViewById(R.id.btnAdjust);
         cartList = new ArrayList<>();
-        cartAdapter = new CartAdapter(this, cartList);
-        rvCart = findViewById(R.id.rvCart);
-        rvCart.setLayoutManager(new LinearLayoutManager(this));
+        cartAdapter = new CartAdapter(getActivity(), cartList);
+        rvCart = view.findViewById(R.id.rvCart);
+        rvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvCart.setAdapter(cartAdapter);
 
         queryCartItems();
         displayCurrentBudget();
-
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ScanActivity.class);
-                startActivity(i);
-            }
-        });
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, AddItemActivity.class);
-                startActivity(i);
-            }
-        });
 
         btnAdjust.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,33 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 cartList.addAll(carts);
                 cartAdapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            logout();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void logout() {
-        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-        ParseUser.logOutInBackground(e -> {
-            progressDialog.dismiss();
-            if (e == null) {
-                Toast.makeText(MainActivity.this, "You have successfully logged out", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, LoginActivity.class);
-                startActivity(i);
-                finish();
             }
         });
     }

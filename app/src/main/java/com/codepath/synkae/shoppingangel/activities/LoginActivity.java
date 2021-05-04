@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel;
+package com.codepath.synkae.shoppingangel.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.codepath.synkae.shoppingangel.R;
+import com.codepath.synkae.shoppingangel.fragments.HomeActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         if (ParseUser.getCurrentUser() != null){
-            goMainActivity();
+            goHomeFragment();
         }
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -47,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 signupUser(username, password);
-                goMainActivity();
+                goHomeFragment();
             }
         });
     }
@@ -84,18 +86,18 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                if(etUsername.getText().toString().equals("admin") && etPassword.getText().toString().equals("password")){
-                  goMainActivity();
-                  Toast.makeText(LoginActivity.this,"Admin Logged in",Toast.LENGTH_SHORT).show();
+                   goHomeFragment();
+                   Toast.makeText(LoginActivity.this,"Admin Logged in",Toast.LENGTH_SHORT).show();
                }else{
-                   goMainActivity();
+                   goHomeFragment();
                    Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                }
             }
         });
     }
 
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goHomeFragment() {
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
         finish();
     }
