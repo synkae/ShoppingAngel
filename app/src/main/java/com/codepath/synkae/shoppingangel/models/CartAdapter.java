@@ -52,6 +52,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cart cart = cartList.get(position);
         holder.bind(cart);
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cart.deleteInBackground();
+                cartList.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
     }
 
     @Override
