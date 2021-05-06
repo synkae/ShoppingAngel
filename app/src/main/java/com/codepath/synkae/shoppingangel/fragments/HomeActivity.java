@@ -59,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem adminOption = menu.findItem(R.id.admin_activity);
+        adminOption.setVisible(ParseUser.getCurrentUser().getUsername().equals("admin"));
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
@@ -68,6 +75,11 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
             logout();
+        }
+        if(item.getItemId() == R.id.admin_activity){
+            Intent admin = new Intent(this, AdminActivity.class);
+            startActivity(admin);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
