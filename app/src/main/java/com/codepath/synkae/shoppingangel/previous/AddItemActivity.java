@@ -1,4 +1,4 @@
-package com.codepath.synkae.shoppingangel;
+package com.codepath.synkae.shoppingangel.previous;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.Toast;
 
+import com.codepath.synkae.shoppingangel.R;
 import com.codepath.synkae.shoppingangel.models.AddItemAdapter;
 import com.codepath.synkae.shoppingangel.models.Item;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
