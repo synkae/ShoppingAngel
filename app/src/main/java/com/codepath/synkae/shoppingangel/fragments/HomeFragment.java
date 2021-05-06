@@ -177,4 +177,10 @@ public class HomeFragment extends Fragment {
     private String convertDoubleToDollar(Double budget) {
         return NumberFormat.getCurrencyInstance(new Locale("en", "US")).format(budget);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //queryCartItems();
+    }
 }
