@@ -3,6 +3,7 @@ package com.codepath.synkae.shoppingangel.models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.synkae.shoppingangel.R;
+import com.codepath.synkae.shoppingangel.fragments.HomeFragment;
+import com.codepath.synkae.shoppingangel.fragments.ItemConfirmFragment;
+import com.codepath.synkae.shoppingangel.fragments.ProductsFragment;
+import com.codepath.synkae.shoppingangel.fragments.ScanFragment;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -73,7 +82,15 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.ViewHold
             public void done(ParseException e) {
                 if (e == null) {
                     // Success
-                    Toast.makeText(context, item.get("itemName") + " successfully added to cart", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, item.get("itemName") + " was successfully added", Toast.LENGTH_SHORT).show();
+
+//                    Fragment fragment = new HomeFragment();
+//                    FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
+
                 } else {
                     // Error
                     Toast.makeText(context, "Add to cart failed", Toast.LENGTH_SHORT).show();

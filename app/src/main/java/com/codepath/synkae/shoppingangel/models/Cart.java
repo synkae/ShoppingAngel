@@ -10,8 +10,8 @@ import org.parceler.Parcel;
 public class Cart extends ParseObject {
     public static final String KEY_USER_ID = "user";
     public static final String KEY_ITEM_ID = "item";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_TOTAL = "total";
+//    public static final String KEY_NAME = "name";
+//    public static final String KEY_TOTAL = "total";
 
     public Cart(){}
 
@@ -27,16 +27,16 @@ public class Cart extends ParseObject {
     public void setItem(ParseObject item){
         put(KEY_ITEM_ID, item);
     }
-    public String getName(){
-        return getString(KEY_NAME);
-    }
-    public void setName(String name) {
-        put(KEY_NAME, name);
-    }
-    public double getTotal(){
-        return getDouble(KEY_TOTAL);
-    }
-    public void setTotal(double total){
-        put(KEY_TOTAL, total);
-    }
+//    public String getItemName(){
+//        return getString(KEY_NAME);
+//    }
+//    public void setName(String name) {
+//        put(KEY_NAME, name);
+//    }
+//    public double getTotal(){
+//        return getDouble(KEY_TOTAL);
+//    }
+//    public void setTotal(double total){
+//        put(KEY_TOTAL, total);
+//    }
 }
