@@ -13,13 +13,14 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="logout">Logout</string>
-    <string name="scan">Scan</string>
+    <string name="scan">Scan Barcode</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="add">Add</string>
+    <string name="search">Search Item</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
-    <string name="currentBudget">Current Budget: $0.00</string>
+    <string name="currentBudget">My Budget: $0.00</string>
     <string name="remainingBudget">Remaining Budget: $0.00</string>
     <string name="adjust">Adjust</string>
     <string name="save">Save</string>

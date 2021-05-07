@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -77,9 +78,11 @@ public class HomeActivity extends AppCompatActivity {
             logout();
         }
         if(item.getItemId() == R.id.admin_activity){
-            Intent admin = new Intent(this, AdminActivity.class);
-            startActivity(admin);
-            finish();
+//            Intent admin = new Intent(this, AdminActivity.class);
+//            startActivity(admin);
+//            finish();
+            Fragment fragment = new AdminFragment();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
         return super.onOptionsItemSelected(item);
     }

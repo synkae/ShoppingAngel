@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.codepath.synkae.shoppingangel.R;
 
@@ -23,6 +24,8 @@ import com.codepath.synkae.shoppingangel.R;
 public class SelectFragment extends Fragment {
     Button btnScan;
     Button btnAdd;
+    ImageView ivScanIcon;
+    ImageView ivSearchIcon;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +80,8 @@ public class SelectFragment extends Fragment {
 
         btnScan = view.findViewById(R.id.btnScan);
         btnAdd = view.findViewById(R.id.btnAdd);
+        ivScanIcon = view.findViewById(R.id.ivScanIcon);
+        ivSearchIcon = view.findViewById(R.id.ivSearchIcon);
 
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +95,31 @@ public class SelectFragment extends Fragment {
             }
         });
 
+        ivScanIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ScanFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ProductsFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        ivSearchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new ProductsFragment();
