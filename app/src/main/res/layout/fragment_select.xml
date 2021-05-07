@@ -7,31 +7,55 @@
 
     <Button
         android:id="@+id/btnScan"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:background="@drawable/btn_round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:background="@android:color/transparent"
+        android:inputType="textCapSentences"
         android:text="@string/scan"
         android:textColor="@color/colorMintFont"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintTop_toBottomOf="@+id/ivScanIcon" />
 
     <Button
         android:id="@+id/btnAdd"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/btn_round"
-        android:text="@string/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:background="@android:color/transparent"
+        android:inputType="textCapSentences"
+        android:text="@string/search"
         android:textColor="@color/colorMintFont"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toEndOf="@+id/btnScan"
+        app:layout_constraintTop_toBottomOf="@+id/ivSearchIcon" />
+
+    <ImageView
+        android:id="@+id/ivScanIcon"
+        android:layout_width="122dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/btn_scan_barcode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScan" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/barcode_icon" />
+
+    <ImageView
+        android:id="@+id/ivSearchIcon"
+        android:layout_width="122dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/btn_scan_barcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toEndOf="@+id/ivScanIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/search_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

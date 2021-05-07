@@ -41,6 +41,7 @@ import java.util.Locale;
 public class HomeFragment extends Fragment {
     TextView tvCurrent;
     TextView tvRemaining;
+    TextView tvCartTitle;
     EditText etNewBudget;
     Button btnAdjust;
     Double currentBudget;
@@ -107,6 +108,8 @@ public class HomeFragment extends Fragment {
         tvRemaining = view.findViewById(R.id.tvRemaining);
         etNewBudget = view.findViewById(R.id.etNewBudget);
         btnAdjust = view.findViewById(R.id.btnAdjust);
+        tvCartTitle = view.findViewById(R.id.tvCartTitle);
+
         cartList = new ArrayList<>();
         cartAdapter = new CartAdapter(getActivity(), cartList);
         rvCart = view.findViewById(R.id.rvCart);
@@ -160,6 +163,12 @@ public class HomeFragment extends Fragment {
                 }
                 cartList.addAll(carts);
                 cartAdapter.notifyDataSetChanged();
+
+                if(carts.size() <= 1) {
+                    tvCartTitle.setText("Cart Items (" + carts.size() + " item)");
+                } else {
+                    tvCartTitle.setText("Cart Items (" + carts.size() + " items)");
+                }
             }
         });
     }
@@ -195,7 +204,7 @@ public class HomeFragment extends Fragment {
         Log.d("changed: ", convertedCurrentBudget);
 
         // display current budget in TextView
-        tvCurrent.setText("Current Budget: " + convertedCurrentBudget);
+        tvCurrent.setText("My budget: " + convertedCurrentBudget);
     }
 
     // convert Double to String $xx.xx

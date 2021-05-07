@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <Button
         android:id="@+id/btnAdjust"
@@ -10,7 +12,7 @@
         android:layout_width="67dp"
         android:layout_height="35dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/btn_round_dark"
         android:text="@string/adjust"
         android:textColor="@color/colorMintGray"
@@ -33,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/remainingBudget"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,20 +46,33 @@
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="83dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="new budget"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRemaining" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCart"
-        android:layout_width="420dp"
+        android:layout_width="380dp"
         android:layout_height="428dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCartTitle" />
+
+    <TextView
+        android:id="@+id/tvCartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="Cart Items"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNewBudget" />
 

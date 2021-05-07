@@ -9,56 +9,45 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.synkae.shoppingangel.R;
-import com.codepath.synkae.shoppingangel.fragments.HomeFragment;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.ViewHolder> {
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> {
     private Context context;
     private List<Item> items;
 
-    public AddItemAdapter(Context context, List<Item> items){
+    public AdminAdapter(Context context, List<Item> items){
         this.context = context;
         this.items = items;
     }
 
     @NonNull
     @Override
-    public AddItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_items, parent, false);
+    public AdminAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_items, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdminAdapter.ViewHolder holder, int position) {
         Item item = items.get(position);
         holder.bind(item);
-        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItemToCart(item);
-
-                //this doesnt work
-                //MainActivity.rvCart.getAdapter().notifyDataSetChanged();
+                deleteAdminItem(item);
             }
         });
     }
@@ -68,40 +57,16 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.ViewHold
         return items.size();
     }
 
-    public void addItemToCart(ParseObject item){
-        // Configure Query
-        ParseObject cartItem = ParseObject.create("Cart");
-        // Store an object
-        cartItem.put("user", ParseUser.getCurrentUser());
-        cartItem.put("item", item);
-        // Saving object
-        cartItem.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Success
-                    Toast.makeText(context, item.get("itemName") + " was successfully added", Toast.LENGTH_SHORT).show();
 
-                    Fragment fragment = new HomeFragment();
-                    FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-
-                } else {
-                    // Error
-                    Toast.makeText(context, "Add to cart failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    public void deleteAdminItem(ParseObject item){
+        // Delete Admin Item
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView ivImage;
         private TextView tvName;
         private TextView tvPrice;
-        private Button btnAdd;
+        private Button btnDelete;
         private Bitmap itemImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -109,7 +74,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.ViewHold
             ivImage = itemView.findViewById(R.id.ivImage);
             tvName = itemView.findViewById(R.id.tvName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            btnAdd = itemView.findViewById(R.id.btnAdd);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
 
         public void bind(Item item) {
