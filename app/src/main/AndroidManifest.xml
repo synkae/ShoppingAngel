@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".fragments.HomeActivity">
         </activity>
+        <activity android:name=".fragments.AdminActivity"/>
         <activity android:name=".previous.AddItemActivity" />
         <activity android:name=".previous.AddActivity" />
         <activity android:name=".previous.ScanActivity" />

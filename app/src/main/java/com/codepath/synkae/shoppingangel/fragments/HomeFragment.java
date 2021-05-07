@@ -1,5 +1,6 @@
 package com.codepath.synkae.shoppingangel.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.synkae.shoppingangel.R;
 import com.codepath.synkae.shoppingangel.models.Cart;
 import com.codepath.synkae.shoppingangel.models.CartAdapter;
+import com.codepath.synkae.shoppingangel.models.Item;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -42,6 +45,7 @@ public class HomeFragment extends Fragment {
     Button btnAdjust;
     Double currentBudget;
     Double newBudget;
+    Double tempBudget;
     ParseUser currentUser = ParseUser.getCurrentUser();
     public static RecyclerView rvCart;
     CartAdapter cartAdapter;
@@ -131,8 +135,28 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "error", e);
                     return;
                 }
+                //get total in cart
+                double total = 0;
                 for (Cart c : carts){
                     Log.d(TAG, c.getObjectId() + " " + c.getUser() + ", " + c.getItem());
+                    double price = 0;
+                    try {
+                        price = c.getItem().fetchIfNeeded().getDouble("price");
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                    total += price;
+                }
+                double dif = currentBudget - total;
+                //if total > current budget, display some error message
+                if (total > currentBudget){
+                    Toast.makeText(getContext(), "Total price of items exceeds budget! Please remove some item(s)!", Toast.LENGTH_SHORT).show();
+                    tvRemaining.setText("Remaining budget: " + convertDoubleToDollar(dif));
+                    tvRemaining.setTextColor(Color.RED);
+                }
+                else{
+                    tvRemaining.setText("Remaining budget: " + convertDoubleToDollar(dif));
+                    tvRemaining.setTextColor(Color.BLACK);
                 }
                 cartList.addAll(carts);
                 cartAdapter.notifyDataSetChanged();
@@ -154,6 +178,7 @@ public class HomeFragment extends Fragment {
             currentUser.saveInBackground();
 
             displayCurrentBudget();
+            queryCartItems();
 
         } catch (NumberFormatException e){
             // empty new budget

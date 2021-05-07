@@ -21,8 +21,8 @@ public class Cart extends ParseObject {
     public void setUser(ParseObject user){
         put(KEY_USER_ID, user);
     }
-    public ParseObject getItem(){
-        return getParseObject(KEY_ITEM_ID);
+    public Item getItem(){
+        return (Item)getParseObject(KEY_ITEM_ID);
     }
     public void setItem(ParseObject item){
         put(KEY_ITEM_ID, item);
