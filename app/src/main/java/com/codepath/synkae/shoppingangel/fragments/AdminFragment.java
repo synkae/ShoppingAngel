@@ -155,7 +155,12 @@ public class AdminFragment extends Fragment {
                     price = Double.parseDouble(etAdminPrice.getText().toString());
                     DecimalFormat df = new DecimalFormat("#.##");
                     price = Double.valueOf(df.format(price));
-                    addAdminItem(itemName, price, itemImageBitmap);
+                    try {
+                        addAdminItem(itemName, price, itemImageBitmap);
+                        queryItems();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
                 }
@@ -214,7 +219,7 @@ public class AdminFragment extends Fragment {
         }
     }
 
-    private void addAdminItem(String itemName, double price, Bitmap itemImageBitmap) {
+    private void addAdminItem(String itemName, double price, Bitmap itemImageBitmap) throws ParseException {
         ParseObject adminItem = ParseObject.create("Item");
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -222,6 +227,8 @@ public class AdminFragment extends Fragment {
         byte[] scaledData = stream.toByteArray();
 
         ParseFile image = new ParseFile(itemName + ".jpg", scaledData);
+        image.save();
+        /*
         image.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -233,11 +240,13 @@ public class AdminFragment extends Fragment {
                 }
             }
         });
-
+        */
         adminItem.put("itemName", itemName);
         adminItem.put("price", price);
         adminItem.put("itemImage", image);
 
+        adminItem.save();
+        /*
         adminItem.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -250,9 +259,12 @@ public class AdminFragment extends Fragment {
                     Log.e(TAG, "Failed to upload the image to parse server. Error: " + e);
                     Toast.makeText(getActivity(), "Add admin item failed", Toast.LENGTH_SHORT).show();
                 }
+                //queryItems();
             }
         });
+        */
 
+        //queryItems();
         adminAdapter.notifyDataSetChanged();
     }
 
