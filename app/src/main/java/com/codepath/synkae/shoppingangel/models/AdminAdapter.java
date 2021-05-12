@@ -1,6 +1,8 @@
 package com.codepath.synkae.shoppingangel.models;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -47,7 +49,10 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAdminItem(item);
+                //deleteAdminItem(item);
+                item.deleteInBackground();
+                items.remove(position);
+                notifyItemRemoved(position);
             }
         });
     }
@@ -60,6 +65,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
     public void deleteAdminItem(ParseObject item){
         // Delete Admin Item
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -96,3 +102,4 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         }
     }
 }
+
