@@ -70,23 +70,22 @@ https://parseplatform.org/
 
 Required Must-have Stories
 </br>
-- [ ] Log In
-- [ ] Log Out
-- [ ] Create an Account
-- [ ] Set / Adjust a Budget
-- [ ] Scan a Barcode
-- [ ] Display an Item Information
-- [ ] Add an Item
-- [ ] Delete an Item
-- [ ] Display Remaining Budget
-- [ ] Admin(add an item)
-- [ ] Admin(edit an item)
+- [x] Log In
+- [x] Log Out
+- [x] Create an Account
+- [x] Set / Adjust a Budget
+- [x] Scan a Barcode
+- [x] Display an Item Information
+- [x] Add an Item
+- [x] Delete an Item
+- [x] Display Remaining Budget
+- [x] Admin(add an item)
+- [x] Admin(edit an item)
 </br></br>
 
 Optional Nice-to-have Stories
 </br>
-- [ ] Scan a Barcode
-- [ ] Upload a Barcode Image
+- [x] Shopping List
 </br></br>
 
 #### Screen Archetypes
@@ -113,6 +112,8 @@ Optional Nice-to-have Stories
    * Admin users can add an item to a database so that users can add/delete the item.
 * Admin(edit an item)
    * Admin users can edit an item to a database so that users can add/delete the item.
+* Shopping List
+   * Users can add(by typing)/delete shopping list items so that they can manage what to buy.
 <br/><br/></br></br>
 
 
