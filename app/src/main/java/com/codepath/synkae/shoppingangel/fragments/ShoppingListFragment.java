@@ -152,6 +152,7 @@ public class ShoppingListFragment extends Fragment {
                 }
             }
         });
+        actvItem.setText("");
     }
 
     protected void queryShoppingListItems() {
