@@ -61,6 +61,8 @@ Shopping Angel is an Android app that lets users set a budget for shopping, scan
 https://www.android.com/
 - Parse
 https://parseplatform.org/
+- Back4App
+https://www.back4app.com/docs/get-started/welcome
 - Camera API
 https://developer.android.com/guide/topics/media/camera
 - MediaStore API
