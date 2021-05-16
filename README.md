@@ -63,6 +63,8 @@ https://www.android.com/
 https://parseplatform.org/
 - Camera API
 https://developer.android.com/guide/topics/media/camera
+- MediaStore API
+https://developer.android.com/reference/android/provider/MediaStore
 - Barcode scanning API (ZXing)
 https://zxing.github.io/zxing/apidocs/
 <br/><br/></br></br>
