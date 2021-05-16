@@ -61,7 +61,10 @@ Shopping Angel is an Android app that lets users set a budget for shopping, scan
 https://www.android.com/
 - Parse
 https://parseplatform.org/
-- Barcode API(optional)
+- Camera API
+https://developer.android.com/guide/topics/media/camera
+- Barcode scanning API (ZXing)
+https://zxing.github.io/zxing/apidocs/
 <br/><br/></br></br>
 
 
